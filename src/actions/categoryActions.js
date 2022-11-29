@@ -66,6 +66,30 @@ export const getCategories = (keyword, page, limit, orderBy, direction) => async
   }
 }
 
+export const getAllCategories = () => async (dispatch) => {
+  try {
+    dispatch({ type: ALL_CATEGORIES_REQUEST })
+    const { data } = await axios.get(`${API_URL}/all-categories`)
+
+    if (!data.success) {
+      dispatch({
+        type: ALL_CATEGORIES_FAIL,
+        error: data.message,
+      })
+    } else {
+      dispatch({
+        type: ALL_CATEGORIES_SUCCESS,
+        payload: data,
+      })
+    }
+  } catch (error) {
+    dispatch({
+      type: ALL_CATEGORIES_FAIL,
+      payload: error.response.data.message,
+    })
+  }
+}
+
 export const getCategory = (categoryID) => async (dispatch) => {
   try {
     dispatch({ type: CATEGORY_DETAILS_REQUEST })

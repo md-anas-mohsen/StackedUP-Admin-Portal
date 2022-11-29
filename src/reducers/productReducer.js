@@ -45,12 +45,14 @@ import {
                 case ALL_PRODUCTS_REQUEST:
                     return {
                         loading: true,
-                        products: []
+                        products: [],
+                        count: 0,
                     }
                 case ALL_PRODUCTS_SUCCESS:
                     return {
                         loading: false,
                         products: action.payload.products,
+                        count: action.payload.count
                     }
                 case ALL_PRODUCTS_FAIL:
                     return {
@@ -115,7 +117,7 @@ import {
                     return {
                         loading: false,
                         success: action.payload.success,
-                        product: action.payload.product
+                        message: action.payload.message
                     }
                 case NEW_PRODUCT_FAIL:
                     return {
