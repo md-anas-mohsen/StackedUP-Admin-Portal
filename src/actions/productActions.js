@@ -228,14 +228,45 @@ export const deleteReview = (productID, reviewID) => async (dispatch) => {
   }
 }
 
-export const getFeatured = () => async (dispatch) => {
+export const getFeatured = (keyword, page, limit, orderBy, direction) => async (dispatch) => {
   try {
     dispatch({ type: GET_FEATURED_REQUEST })
-    const { data } = await axios.get('/api/v1/featured')
-    dispatch({
-      type: GET_FEATURED_SUCCESS,
-      payload: data.featured,
-    })
+
+    let queryString = `/api/carousel?`
+
+    if (!!keyword) {
+      queryString += `keyword=${keyword}&`
+    }
+
+    if (!!page) {
+      queryString += `page=${page}&`
+    }
+
+    if (!!limit) {
+      queryString += `limit=${limit}&`
+    }
+
+    if (!!orderBy) {
+      queryString += `orderBy=${orderBy}&`
+    }
+
+    if (!!direction) {
+      queryString += `direction=${direction}`
+    }
+
+    const { data } = await axios.get(queryString)
+
+    if (!data.success) {
+      dispatch({
+        type: GET_FEATURED_FAIL,
+        payload: data.message,
+      })
+    } else {
+      dispatch({
+        type: GET_FEATURED_SUCCESS,
+        payload: data,
+      })
+    }
   } catch (error) {
     dispatch({
       type: GET_FEATURED_FAIL,
@@ -256,12 +287,18 @@ export const addFeatured = (slideData) => async (dispatch) => {
       },
     }
 
-    const { data } = await axios.post('/api/v1/admin/featured', slideData, config)
-
-    dispatch({
-      type: ADD_FEATURED_SUCCESS,
-      payload: data.success,
-    })
+    const { data } = await axios.post('/api/carousel', slideData, config)
+    if (!data.success) {
+      dispatch({
+        type: ADD_FEATURED_FAIL,
+        payload: data.message,
+      })
+    } else {
+      dispatch({
+        type: ADD_FEATURED_SUCCESS,
+        payload: data,
+      })
+    }
   } catch (error) {
     dispatch({
       type: ADD_FEATURED_FAIL,
@@ -276,7 +313,7 @@ export const deleteFeatured = (slideID) => async (dispatch) => {
       type: DELETE_FEATURED_REQUEST,
     })
 
-    const { data } = await axios.delete(`/api/v1/admin/featured/${slideID}`)
+    const { data } = await axios.delete(`/api/carousel/${slideID}`)
 
     dispatch({
       type: DELETE_FEATURED_SUCCESS,
