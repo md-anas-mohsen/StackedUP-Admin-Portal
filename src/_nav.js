@@ -100,7 +100,7 @@ const _nav = [
   {
     _component: 'CNavGroup',
     as: NavLink,
-    anchor: 'Banner',
+    anchor: 'Carousel',
     to: '/to',
     icon: <CIcon name="cil-flag-alt" customClassName="nav-icon" />,
     items: [

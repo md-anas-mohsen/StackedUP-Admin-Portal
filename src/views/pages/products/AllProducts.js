@@ -43,6 +43,12 @@ import { PAGE_RECORDS_LIMIT } from 'src/constants/generalConstants'
 const AllProducts = () => {
   const dispatch = useDispatch()
   const history = useHistory()
+  const screen = window.location.pathname.split('/')[3]
+  let firstWord = screen.split('-')[0]
+  let secondWord = screen.split('-')[1]
+  firstWord = firstWord.charAt(0).toUpperCase() + firstWord.toLowerCase().slice(1)
+  secondWord = secondWord.charAt(0).toUpperCase() + secondWord.toLowerCase().slice(1)
+  const title = `${firstWord} ${secondWord}`
 
   const {
     error: productsError,
@@ -110,30 +116,42 @@ const AllProducts = () => {
           price: product.price,
           createdAt: product.createdAt?.toString().slice(0, 10),
           category: product.category?.name,
-          actions: (
-            <>
-              <CButton
-                color="info"
-                variant="ghost"
-                size="sm"
-                onClick={() => history.push(`/admin/products/${product._id}`)}
-              >
-                <CIcon name="cil-pencil" />
-              </CButton>
-              <CButton
-                color="danger"
-                variant="ghost"
-                size="sm"
-                onClick={() => showDelete(product._id, product.name)}
-              >
-                <CIcon name="cil-trash" />
-              </CButton>
-            </>
-          ),
+          actions:
+            title === 'All Products' ? (
+              <>
+                <CButton
+                  color="info"
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => history.push(`/admin/products/${product._id}`)}
+                >
+                  <CIcon name="cil-pencil" />
+                </CButton>
+                <CButton
+                  color="danger"
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => showDelete(product._id, product.name)}
+                >
+                  <CIcon name="cil-trash" />
+                </CButton>
+              </>
+            ) : (
+              title === 'Product Reviews' && (
+                <CButton
+                  color="info"
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => history.push(`/admin/products/product-reviews/${product._id}`)}
+                >
+                  <i className="far fa-eye"></i>
+                </CButton>
+              )
+            ),
         })),
       )
     }
-  }, [products, history, dispatch])
+  }, [products, title, history, dispatch])
 
   const handleDeleteProduct = (productID) => {
     dispatch(deleteProduct(productID))
@@ -173,8 +191,8 @@ const AllProducts = () => {
       width: 200,
     },
     {
-      label: 'Stock',
-      field: 'stock',
+      label: title === 'All Products' ? 'Stock' : title === 'Product Reviews' && 'Ratings',
+      field: title === 'All Products' ? 'stock' : title === 'Product Reviews' && 'ratings',
       width: 100,
       sort: 'disabled',
     },
@@ -240,10 +258,10 @@ const AllProducts = () => {
 
   return (
     <>
-      <Metadata title={'All Products'} />
+      <Metadata title={title} />
       {alert && <CAlert color={alert.type}>{alert.message}</CAlert>}
       <CCard className="mb-4">
-        <CCardHeader>All Products</CCardHeader>
+        <CCardHeader>{title}</CCardHeader>
         <CCardBody>
           <CInputGroup className="mb-3">
             <CInputGroupText id="inputGroup-sizing-default">Search</CInputGroupText>
