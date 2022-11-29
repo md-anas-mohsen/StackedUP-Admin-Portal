@@ -4,6 +4,7 @@ import { getProducts } from 'src/actions/productActions.js'
 import { allOrders } from 'src/actions/orderActions.js'
 import Metadata from 'src/reusable/Metadata.js'
 import { getUsers } from 'src/actions/userActions.js'
+import { PROCESSING } from 'src/constants/orderConstants.js'
 
 const WidgetsDropdown = lazy(() => import('../components/widgets/WidgetsDropdown.js'))
 
@@ -31,7 +32,7 @@ const Dashboard = () => {
     }
     if (orders) {
       orders.forEach((order) => {
-        if (order.orderStatus === 'Processing') setOrdersPending((prev) => prev + 1)
+        if (order.orderStatus === PROCESSING) setOrdersPending((prev) => prev + 1)
       })
     }
   }, [products, orders])
