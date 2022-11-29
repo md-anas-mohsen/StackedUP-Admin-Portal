@@ -89,7 +89,7 @@ const Login = () => {
                 <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
                   <CCardBody className="text-center">
                     <div>
-                      <h2>Admin Login</h2>
+                      <h2>StackedUP Admin</h2>
                     </div>
                   </CCardBody>
                 </CCard>
