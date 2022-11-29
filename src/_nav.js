@@ -45,6 +45,29 @@ const _nav = [
     ],
   },
   {
+    _component: 'CNavGroup',
+    as: NavLink,
+    anchor: 'Categories',
+    to: '/to',
+    icon: <CIcon name="cil-list" customClassName="nav-icon" />,
+    items: [
+      {
+        _component: 'CNavItem',
+        as: NavLink,
+        anchor: 'Add Category',
+        to: '/admin/categories/add-category',
+        icon: <CIcon name="cib-addthis" customClassName="nav-icon" />,
+      },
+      {
+        _component: 'CNavItem',
+        as: NavLink,
+        anchor: 'All Categories',
+        to: '/admin/categories/all-categories',
+        icon: <CIcon name="cil-list" customClassName="nav-icon" />,
+      },
+    ],
+  },
+  {
     _component: 'CNavItem',
     as: NavLink,
     anchor: 'Orders',

@@ -19,6 +19,7 @@ import {
 } from './reducers/productReducer'
 import { sidebarReducer } from './reducers/sidebarReducer'
 import { orderDetailsReducer, orderReducer, ordersReducer } from './reducers/orderReducers'
+import { categoryReducer } from './reducers/categoryReducer'
 
 const reducer = combineReducers({
   auth: authReducer,
@@ -37,6 +38,7 @@ const reducer = combineReducers({
   banner: bannerReducer,
   newSlide: newSlideReducer,
   slide: slideReducer,
+  categories: categoryReducer,
 })
 
 const middleware = [thunk]
