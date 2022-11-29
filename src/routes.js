@@ -9,6 +9,7 @@ const AllOrders = React.lazy(() => import('./views/pages/orders/AllOrders'))
 const ProcessOrder = React.lazy(() => import('./views/pages/orders/ProcessOrder'))
 const AllUsers = React.lazy(() => import('./views/pages/users/AllUsers'))
 const UpdateUser = React.lazy(() => import('./views/pages/users/UpdateUser'))
+const CreateUser = React.lazy(() => import('./views/pages/users/CreateUser'))
 const ProductReviews = React.lazy(() => import('./views/pages/products/ProductReviews'))
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const AllSlides = React.lazy(() => import('./views/pages/banner/AllSlides'))
@@ -46,6 +47,7 @@ const routes = [
   { path: '/admin/orders', name: 'All Orders', component: AllOrders, exact: true },
   { path: '/admin/orders/:id', name: 'Process Order', component: ProcessOrder },
   { path: '/admin/users', name: 'All Users', component: AllUsers, exact: true },
+  { path: '/admin/users/create-user', name: 'Create User', component: CreateUser },
   { path: '/admin/users/:id', name: 'Update User', component: UpdateUser },
   { path: '/admin/banner/allslides', name: 'All Slides', component: AllSlides },
   { path: '/admin/banner/addslide', name: 'Add Slide', component: AddSlide },

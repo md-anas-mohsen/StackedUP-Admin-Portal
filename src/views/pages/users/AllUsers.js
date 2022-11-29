@@ -61,7 +61,7 @@ const AllUsers = () => {
       dispatch(clearErrors())
     }
     if (isDeleted) {
-      setAlert({ type: 'success', message: `${userName} ID: ${toDelete} successfully deleted` })
+      setAlert({ type: 'success', message: `${userName} (ID: ${toDelete}) successfully deleted` })
       dispatch({ type: DELETE_USER_RESET })
     }
   }, [dispatch, error, userError, isDeleted, userName, toDelete, keyword, page, orderBy, direction])

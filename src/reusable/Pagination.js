@@ -15,13 +15,15 @@ const Pagination = ({ count, page, setPage }) => {
         <span aria-hidden="true">&laquo;</span>
       </CPaginationItem>
       {count > PAGE_RECORDS_LIMIT &&
-        [...Array.from({ length: count / PAGE_RECORDS_LIMIT }, (v, i) => i + 1)].map((val) => (
-          <CPaginationItem onClick={() => setPage(val)} key={val}>
-            {val}
-          </CPaginationItem>
-        ))}
+        [...Array.from({ length: Math.ceil(count / PAGE_RECORDS_LIMIT) }, (v, i) => i + 1)].map(
+          (val) => (
+            <CPaginationItem onClick={() => setPage(val)} key={val}>
+              {val}
+            </CPaginationItem>
+          ),
+        )}
       <CPaginationItem
-        disabled={count < PAGE_RECORDS_LIMIT || page === count / PAGE_RECORDS_LIMIT}
+        disabled={count < PAGE_RECORDS_LIMIT || page === Math.ceil(count / PAGE_RECORDS_LIMIT)}
         onClick={() => page < count / PAGE_RECORDS_LIMIT && setPage((prevVal) => prevVal + 1)}
         aria-label="Next"
       >

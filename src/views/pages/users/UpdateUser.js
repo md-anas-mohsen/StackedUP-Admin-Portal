@@ -40,7 +40,12 @@ const UpdateUser = ({ match }) => {
   const [email, setEmail] = useState('')
   const [role, setRole] = useState('')
   const { error, user, loading } = useSelector((state) => state.userDetails)
-  const { error: userError, isUpdated, loading: loadingUser } = useSelector((state) => state.user)
+  const {
+    error: userError,
+    isUpdated,
+    message,
+    loading: loadingUser,
+  } = useSelector((state) => state.user)
   const [alert, setAlert] = useState(null)
 
   useEffect(() => {
@@ -51,15 +56,15 @@ const UpdateUser = ({ match }) => {
       setEmail(user.email)
       setRole(user.role)
     }
-    if (error) {
-      setAlert({ type: 'danger', message: error })
+    if (userError) {
+      setAlert({ type: 'danger', message: userError })
       dispatch(clearErrors())
     }
     if (isUpdated) {
-      setAlert({ type: 'success', message: 'User updated successfully' })
+      setAlert({ type: 'success', message })
       dispatch({ type: UPDATE_USER_RESET })
     }
-  }, [dispatch, user, error, userID, isUpdated])
+  }, [dispatch, user, userError, userID, isUpdated, message])
 
   const handleSubmit = (e) => {
     e.preventDefault()

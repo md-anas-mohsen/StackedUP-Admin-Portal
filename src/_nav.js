@@ -52,11 +52,27 @@ const _nav = [
     icon: <CIcon name="cil-truck" customClassName="nav-icon" />,
   },
   {
-    _component: 'CNavItem',
+    _component: 'CNavGroup',
     as: NavLink,
     anchor: 'Users',
-    to: '/admin/users',
+    to: '/to',
     icon: <CIcon name="cil-user" customClassName="nav-icon" />,
+    items: [
+      {
+        _component: 'CNavItem',
+        as: NavLink,
+        anchor: 'All users',
+        to: '/admin/users',
+        icon: <CIcon name="cil-list" customClassName="nav-icon" />,
+      },
+      {
+        _component: 'CNavItem',
+        as: NavLink,
+        anchor: 'Create user',
+        to: '/admin/users/create-user',
+        icon: <CIcon name="cib-addthis" customClassName="nav-icon" />,
+      },
+    ],
   },
   {
     _component: 'CNavGroup',

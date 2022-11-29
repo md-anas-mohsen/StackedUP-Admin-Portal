@@ -37,6 +37,9 @@ import {
   DELETE_USER_SUCCESS,
   DELETE_USER_FAIL,
   CLEAR_ERRORS,
+  CREATE_USER_REQUEST,
+  CREATE_USER_FAIL,
+  CREATE_USER_SUCCESS,
 } from '../constants/userConstants'
 
 export const login = (email, password) => async (dispatch) => {
@@ -318,7 +321,7 @@ export const updateUser = (userID, userData) => async (dispatch) => {
     } else {
       dispatch({
         type: UPDATE_USER_SUCCESS,
-        payload: data.success,
+        payload: data,
       })
     }
   } catch (error) {
@@ -329,14 +332,51 @@ export const updateUser = (userID, userData) => async (dispatch) => {
   }
 }
 
+export const createUser = (userData) => async (dispatch) => {
+  try {
+    dispatch({ type: CREATE_USER_REQUEST })
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+    const { data } = await axios.post(`/api/users`, userData, config)
+
+    if (!data.success) {
+      dispatch({
+        type: CREATE_USER_FAIL,
+        payload: data.message,
+      })
+    } else {
+      dispatch({
+        type: CREATE_USER_SUCCESS,
+        payload: data,
+      })
+    }
+  } catch (error) {
+    dispatch({
+      type: CREATE_USER_FAIL,
+      payload: error.response.data.message,
+    })
+  }
+}
+
 export const deleteUser = (userID) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_USER_REQUEST })
-    const { data } = await axios.delete(`/api/v1/admin/user/${userID}`)
-    dispatch({
-      type: DELETE_USER_SUCCESS,
-      payload: data.success,
-    })
+    const { data } = await axios.delete(`/api/users/${userID}`)
+
+    if (!data.success) {
+      dispatch({
+        type: DELETE_USER_FAIL,
+        payload: data.message,
+      })
+    } else {
+      dispatch({
+        type: DELETE_USER_SUCCESS,
+        payload: data.success,
+      })
+    }
   } catch (error) {
     dispatch({
       type: DELETE_USER_FAIL,
