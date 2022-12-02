@@ -222,14 +222,6 @@ const ProcessOrder = ({ match }) => {
                           </CBadge>
                         </CListGroupItem>
                       </CListGroup>
-                      {/* <CListGroup>
-                        <CListGroupItem className="d-flex justify-content-between align-items-center">
-                          <p>
-                            <strong>Stripe ID</strong>
-                          </p>
-                          <p>{order.paymentInfo?.id}</p>
-                        </CListGroupItem>
-                      </CListGroup> */}
                       <CListGroup>
                         {order.deliveredAt ? (
                           <CListGroupItem className="d-flex justify-content-between align-items-center">
